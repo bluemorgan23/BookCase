@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using BookCase.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using BookCase.Models;
 
 namespace BookCase
 {
@@ -35,10 +36,12 @@ namespace BookCase
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            // Change the default 'IdentityUser' to our model ApplicationUser
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddDefaultIdentity<ApplicationUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
